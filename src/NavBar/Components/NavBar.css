@@ -1,0 +1,41 @@
+.main-menu {
+  background: #000;
+  color: #fff;
+  width: 250px;
+}
+
+.main-menu .menu-fixed {
+  position: fixed;
+  height: 100%;
+}
+
+.main-menu-content {
+  padding: 20px;
+}
+
+.navigation-main {
+  list-style: none;
+  padding: 0;
+}
+
+.nav-item {
+  margin-bottom: 15px;
+}
+
+.menu-title {
+  margin-left: 10px;
+}
+
+.arrow {
+  margin-left: auto;
+  font-size: 12px;
+}
+
+.subMenu {
+  padding-left: 20px;
+  list-style: none;
+}
+
+.subMenu .menu-item {
+  padding: 5px 0;
+}
