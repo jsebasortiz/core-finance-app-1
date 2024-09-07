@@ -1,7 +1,8 @@
 import { ObjectResponse } from "../Types/TypesDTO/ObjectResponse";
 import { DepartmentTypes } from "../Types/DepartmentTypes";
 
-const URL = 'http://localhost:8080/api/v1/back-app-catalog-core-service/department';
+const URL = 'http://localhost:8081/api/v1/back-app-catalog-core-service/department';
+
 
 export async function GetDepartmentId(id: number): Promise<ObjectResponse<DepartmentTypes> | null> {
     try {

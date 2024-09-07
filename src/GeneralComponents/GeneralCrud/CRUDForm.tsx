@@ -29,7 +29,7 @@ interface CRUDFormProps<T> {
   columns: ColumnDefinition<T>[];
   actions: (item: T, handleEdit: (item: T) => void, handleDelete: (id: number) => void) => React.ReactNode;
   sortFieldMap: Record<string, string>;
-  renderCustomFormField?: (colKey: keyof T, value: any, onChange: (newValue: any) => void) => React.ReactNode;
+  renderCustomFormField?: (colKey: keyof T, value: unknown, onChange: (newValue: unknown) => void) => React.ReactNode;
 }
 
 const CRUDForm = <T extends { id: number }>({

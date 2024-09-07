@@ -1,6 +1,6 @@
 import { TreeNode } from '../Types/PUCType';
 
-const apiUrl = 'http://localhost:8080/api/v1/back-app-catalog-core-service/accounting';
+const apiUrl = 'http://localhost:8081/api/v1/back-app-catalog-core-service/accounting';
 
 // Obtener todas las clases de cuentas
 interface AccountClass {
