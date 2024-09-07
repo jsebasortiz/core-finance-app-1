@@ -2,6 +2,12 @@
   background: #000;
   color: #fff;
   width: 250px;
+  transition: width 0.3s ease; /* Transición suave para mostrar/ocultar */
+}
+
+.main-menu.menu-closed {
+  width: 0; /* Oculta el menú */
+  overflow: hidden; /* Evita que el contenido sea visible cuando está oculto */
 }
 
 .main-menu .menu-fixed {
@@ -38,4 +44,34 @@
 
 .subMenu .menu-item {
   padding: 5px 0;
+}
+/* Ancho del menú expandido */
+.vertical-layout.vertical-menu-modern.menu-expanded .main-menu {
+  width: 260px;
+}
+
+/* Ancho del menú colapsado (mitad del expandido) */
+.vertical-layout.vertical-menu-modern.menu-collapsed .main-menu {
+  width: 130px; /* Ajusta este valor a la mitad del expandido */
+}
+
+/* Ocultar el texto de la marca cuando está colapsado */
+.vertical-layout.vertical-menu-modern.menu-collapsed .navbar-header .brand-text {
+  display: none;
+}
+
+/* Ocultar los labels de los ítems del menú cuando está colapsado */
+.vertical-layout.vertical-menu-modern.menu-collapsed .main-menu .navigation > li > a .menu-item {
+  display: none;
+}
+
+/* Ajustar el margen del contenido principal */
+.vertical-layout.vertical-menu-modern.menu-expanded .app-content,
+.vertical-layout.vertical-menu-modern.menu-expanded .footer {
+  margin-left: 260px;
+}
+
+.vertical-layout.vertical-menu-modern.menu-collapsed .app-content,
+.vertical-layout.vertical-menu-modern.menu-collapsed .footer {
+  margin-left: 130px; /* Debe coincidir con el ancho del menú colapsado */
 }
