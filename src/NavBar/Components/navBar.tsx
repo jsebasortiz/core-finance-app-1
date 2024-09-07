@@ -5,7 +5,18 @@ import {
   ExitToApp as ExitToAppIcon,
   Close as CloseIcon,
   ArrowForward,
-  RadioButtonChecked,
+  Business as BusinessIcon, // Empresa
+  Work as WorkIcon, // Actividad Económica
+  Store as StoreIcon, // Sucursal
+  Inventory as InventoryIcon, // Inventario
+  Category as CategoryIcon, // Categorías
+  Apartment as DepartmentIcon, // Departamentos
+  LocationCity as CityIcon, // Localidad
+  MonetizationOn as CurrencyIcon, // Tipo de moneda
+  AccountTree as PucArbolIcon, // PUC Árbol
+  AccountTreeOutlined as PucArbol2Icon, // PUC Árbol 2
+  Build as ResourcesIcon, // Recursos
+  PlaylistAddCheck as ExecutionIcon, // Ejecuciones
 } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import Header from "../../Header/components/Header";
@@ -32,34 +43,22 @@ const MainMenu: React.FC = () => {
   };
 
   const menuOptions = [
-    { path: "/company", label: "Empresa", icon: <RadioButtonChecked /> },
+    { path: "/company", label: "Empresa", icon: <BusinessIcon /> },
     {
       path: "/economicActivity",
       label: "Actividad Económica",
-      icon: <RadioButtonChecked />,
+      icon: <WorkIcon />,
     },
-    { path: "/branch", label: "Sucursal", icon: <RadioButtonChecked /> },
-    { path: "/inventory", label: "Inventario", icon: <RadioButtonChecked /> },
-    { path: "/category", label: "Categorías", icon: <RadioButtonChecked /> },
-    {
-      path: "/department",
-      label: "Departamentos",
-      icon: <RadioButtonChecked />,
-    },
-    { path: "/city", label: "Localidad", icon: <RadioButtonChecked /> },
-    {
-      path: "/currencyType",
-      label: "Tipo de moneda",
-      icon: <RadioButtonChecked />,
-    },
-    { path: "/arbol", label: "PUC Árbol", icon: <RadioButtonChecked /> },
-    { path: "/arbol2", label: "PUC Árbol 2", icon: <RadioButtonChecked /> },
-    { path: "/recursos", label: "Recursos", icon: <RadioButtonChecked /> },
-    {
-      path: "/ejecuciones",
-      label: "Ejecuciones",
-      icon: <RadioButtonChecked />,
-    },
+    { path: "/branch", label: "Sucursal", icon: <StoreIcon /> },
+    { path: "/inventory", label: "Inventario", icon: <InventoryIcon /> },
+    { path: "/category", label: "Categorías", icon: <CategoryIcon /> },
+    { path: "/department", label: "Departamentos", icon: <DepartmentIcon /> },
+    { path: "/city", label: "Localidad", icon: <CityIcon /> },
+    { path: "/currencyType", label: "Tipo de moneda", icon: <CurrencyIcon /> },
+    { path: "/arbol", label: "PUC Árbol", icon: <PucArbolIcon /> },
+    { path: "/arbol2", label: "PUC Árbol 2", icon: <PucArbol2Icon /> },
+    { path: "/recursos", label: "Recursos", icon: <ResourcesIcon /> },
+    { path: "/ejecuciones", label: "Ejecuciones", icon: <ExecutionIcon /> },
   ];
 
   const filteredMenu = menuOptions.filter((option) =>
