@@ -5,18 +5,20 @@ import {
   ExitToApp as ExitToAppIcon,
   Close as CloseIcon,
   ArrowForward,
-  Business as BusinessIcon, // Empresa
-  Work as WorkIcon, // Actividad Económica
-  Store as StoreIcon, // Sucursal
-  Inventory as InventoryIcon, // Inventario
-  Category as CategoryIcon, // Categorías
-  Apartment as DepartmentIcon, // Departamentos
-  LocationCity as CityIcon, // Localidad
-  MonetizationOn as CurrencyIcon, // Tipo de moneda
-  AccountTree as PucArbolIcon, // PUC Árbol
-  AccountTreeOutlined as PucArbol2Icon, // PUC Árbol 2
-  Build as ResourcesIcon, // Recursos
-  PlaylistAddCheck as ExecutionIcon, // Ejecuciones
+  Business as BusinessIcon,
+  Work as WorkIcon,
+  Store as StoreIcon,
+  Inventory as InventoryIcon,
+  Category as CategoryIcon,
+  Apartment as DepartmentIcon,
+  LocationCity as CityIcon,
+  MonetizationOn as CurrencyIcon,
+  AccountTree as PucArbolIcon,
+  AccountTreeOutlined as PucArbol2Icon,
+  Build as ResourcesIcon,
+  PlaylistAddCheck as ExecutionIcon,
+  Favorite as FavoriteIcon,
+  FavoriteBorder as FavoriteBorderIcon,
 } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import Header from "../../Header/components/Header";
@@ -25,6 +27,8 @@ const MainMenu: React.FC = () => {
   const [searchText, setSearchText] = useState<string>(""); // Estado para la búsqueda
   const [showSearch, setShowSearch] = useState<boolean>(false); // Estado para mostrar/ocultar la barra de búsqueda
   const [isMenuCollapsed, setIsMenuCollapsed] = useState<boolean>(false); // Estado para controlar si el menú está colapsado
+  const [favorites, setFavorites] = useState<string[]>([]); // Estado para manejar los favoritos
+  const [showFavorites, setShowFavorites] = useState<boolean>(false); // Mostrar solo favoritos o todos los elementos
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchText(e.target.value);
@@ -40,6 +44,18 @@ const MainMenu: React.FC = () => {
 
   const handleToggleMenu = () => {
     setIsMenuCollapsed((prevIsMenuCollapsed) => !prevIsMenuCollapsed);
+  };
+
+  const toggleFavorite = (label: string) => {
+    setFavorites((prevFavorites) =>
+      prevFavorites.includes(label)
+        ? prevFavorites.filter((item) => item !== label)
+        : [...prevFavorites, label]
+    );
+  };
+
+  const toggleShowFavorites = () => {
+    setShowFavorites(!showFavorites);
   };
 
   const menuOptions = [
@@ -61,9 +77,14 @@ const MainMenu: React.FC = () => {
     { path: "/ejecuciones", label: "Ejecuciones", icon: <ExecutionIcon /> },
   ];
 
+  // Filtrar menú según búsqueda y si está mostrando favoritos
   const filteredMenu = menuOptions.filter((option) =>
     option.label.toLowerCase().includes(searchText.toLowerCase())
   );
+
+  const displayedMenu = showFavorites
+    ? filteredMenu.filter((option) => favorites.includes(option.label))
+    : filteredMenu;
 
   return (
     <>
@@ -122,6 +143,18 @@ const MainMenu: React.FC = () => {
             >
               {isMenuCollapsed ? <ArrowForward /> : <CloseIcon />}
             </Button>
+            <Button
+              variant="link"
+              className="nav-link"
+              onClick={toggleShowFavorites}
+              style={{ color: "red" }}
+            >
+              {showFavorites ? (
+                <FavoriteIcon style={{ color: "red" }} />
+              ) : (
+                <FavoriteBorderIcon style={{ color: "red" }} />
+              )}
+            </Button>
           </div>
 
           {/* Campo de búsqueda */}
@@ -143,9 +176,12 @@ const MainMenu: React.FC = () => {
               id="main-menu-navigation"
               data-menu="menu-navigation"
             >
-              {filteredMenu.length > 0 ? (
-                filteredMenu.map((option, index) => (
-                  <li className="nav-item" key={index}>
+              {displayedMenu.length > 0 ? (
+                displayedMenu.map((option, index) => (
+                  <li
+                    className="nav-item d-flex align-items-center"
+                    key={index}
+                  >
                     <Link
                       to={option.path}
                       className="d-flex align-items-center"
@@ -157,6 +193,21 @@ const MainMenu: React.FC = () => {
                         </span>
                       )}
                     </Link>
+
+                    {/* Solo mostrar el botón de favoritos si el menú NO está colapsado */}
+                    {!isMenuCollapsed && (
+                      <Button
+                        variant="link"
+                        className="nav-link"
+                        onClick={() => toggleFavorite(option.label)}
+                      >
+                        {favorites.includes(option.label) ? (
+                          <FavoriteIcon />
+                        ) : (
+                          <FavoriteBorderIcon />
+                        )}
+                      </Button>
+                    )}
                   </li>
                 ))
               ) : (

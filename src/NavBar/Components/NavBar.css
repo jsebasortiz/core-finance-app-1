@@ -52,7 +52,7 @@
 
 /* Ancho del menú colapsado (mitad del expandido) */
 .vertical-layout.vertical-menu-modern.menu-collapsed .main-menu {
-  width: 130px; /* Ajusta este valor a la mitad del expandido */
+  width: 180px; /* Ajusta este valor a la mitad del expandido */
 }
 
 /* Ocultar el texto de la marca cuando está colapsado */
