@@ -1,7 +1,7 @@
 .main-menu {
   background: #000;
   color: #fff;
-  width: 250px;
+  width: 200px;
   transition: width 0.3s ease; /* Transición suave para mostrar/ocultar */
 }
 
@@ -16,7 +16,7 @@
 }
 
 .main-menu-content {
-  padding: 20px;
+  padding: 10px;
 }
 
 .navigation-main {
@@ -38,7 +38,7 @@
 }
 
 .subMenu {
-  padding-left: 20px;
+  padding-left: 10px;
   list-style: none;
 }
 
@@ -52,7 +52,7 @@
 
 /* Ancho del menú colapsado (mitad del expandido) */
 .vertical-layout.vertical-menu-modern.menu-collapsed .main-menu {
-  width: 180px; /* Ajusta este valor a la mitad del expandido */
+  width: 150px; /* Ajusta este valor a la mitad del expandido */
 }
 
 /* Ocultar el texto de la marca cuando está colapsado */
@@ -68,10 +68,73 @@
 /* Ajustar el margen del contenido principal */
 .vertical-layout.vertical-menu-modern.menu-expanded .app-content,
 .vertical-layout.vertical-menu-modern.menu-expanded .footer {
-  margin-left: 260px;
+  margin-left: 100px;
 }
 
 .vertical-layout.vertical-menu-modern.menu-collapsed .app-content,
 .vertical-layout.vertical-menu-modern.menu-collapsed .footer {
-  margin-left: 130px; /* Debe coincidir con el ancho del menú colapsado */
+  margin-left: 110px; /* Debe coincidir con el ancho del menú colapsado */
+}.main-menu {
+  background: #000;
+  color: #fff;
+  width: 250px;
+  transition: width 0.3s ease;
+}
+
+.menu-collapsed {
+  width: 80px;
+}
+
+.menu-expanded {
+  width: 250px;
+}
+
+.menu-hovered {
+  width: 250px;
+}
+.menu-hovered {
+  width: 250px; /* Expandir el menú temporalmente al hacer hover */
+}
+
+.menu-collapsed {
+  width: 80px;
+}
+
+.menu-expanded {
+  width: 250px;
+}
+
+.main-menu {
+  transition: width 0.3s ease;
+}
+
+.menu-item {
+  transition: opacity 0.3s ease;
+}
+.menu-hovered {
+  width: 250px;
+}
+
+.menu-collapsed {
+  width: 80px;
+}
+
+.menu-expanded {
+  width: 250px;
+}
+
+.main-menu {
+  transition: width 0.3s ease;
+}
+
+.menu-item {
+  transition: opacity 0.3s ease;
+}
+.main-menu-content a {
+  text-decoration: none; /* Elimina el subrayado */
+  color: inherit; /* Mantiene el color del enlace según lo heredado */
+}
+
+.main-menu-content a:hover {
+  text-decoration: none; /* Asegura que al pasar el cursor tampoco se subraye */
 }

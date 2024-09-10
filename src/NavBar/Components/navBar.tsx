@@ -1,10 +1,7 @@
 import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import {
-  Search as SearchIcon,
   ExitToApp as ExitToAppIcon,
-  Close as CloseIcon,
-  ArrowForward,
   Business as BusinessIcon,
   Work as WorkIcon,
   Store as StoreIcon,
@@ -17,47 +14,40 @@ import {
   AccountTreeOutlined as PucArbol2Icon,
   Build as ResourcesIcon,
   PlaylistAddCheck as ExecutionIcon,
-  Favorite as FavoriteIcon,
-  FavoriteBorder as FavoriteBorderIcon,
 } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import Header from "../../Header/components/Header";
 
 const MainMenu: React.FC = () => {
-  const [searchText, setSearchText] = useState<string>(""); // Estado para la búsqueda
-  const [showSearch, setShowSearch] = useState<boolean>(false); // Estado para mostrar/ocultar la barra de búsqueda
-  const [isMenuCollapsed, setIsMenuCollapsed] = useState<boolean>(false); // Estado para controlar si el menú está colapsado
-  const [favorites, setFavorites] = useState<string[]>([]); // Estado para manejar los favoritos
-  const [showFavorites, setShowFavorites] = useState<boolean>(false); // Mostrar solo favoritos o todos los elementos
+  const [isMenuCollapsed, setIsMenuCollapsed] = useState<boolean>(true); // Estado para controlar si el menú está colapsado
+  const [isHovered, setIsHovered] = useState<boolean>(false); // Estado para manejar hover sobre el menú
+  const [isMenuFixed, setIsMenuFixed] = useState<boolean>(false); // Estado para manejar si el menú está fijado
 
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchText(e.target.value);
-  };
-
-  // Expande el menú al hacer clic en el botón de búsqueda
-  const handleToggleSearch = () => {
-    setShowSearch((prevShowSearch) => !prevShowSearch);
-    if (isMenuCollapsed) {
-      setIsMenuCollapsed(false); // Asegura que el menú se expanda al buscar
+  // Función para alternar entre colapsar, fijar y expandir el menú permanentemente
+  const handleToggleMenu = () => {
+    if (isMenuFixed) {
+      setIsMenuFixed(false); // Ya no está fijado
+      setIsMenuCollapsed(true); // Colapsamos el menú
+    } else {
+      setIsMenuFixed(true); // Fijamos el menú
+      setIsMenuCollapsed(false); // Expandimos el menú
     }
   };
 
-  const handleToggleMenu = () => {
-    setIsMenuCollapsed((prevIsMenuCollapsed) => !prevIsMenuCollapsed);
+  // Funciones para manejar hover en el menú
+  const handleMouseEnter = () => {
+    if (isMenuCollapsed && !isMenuFixed) {
+      setIsHovered(true); // Expandir el menú al pasar el cursor cuando está colapsado
+    }
   };
 
-  const toggleFavorite = (label: string) => {
-    setFavorites((prevFavorites) =>
-      prevFavorites.includes(label)
-        ? prevFavorites.filter((item) => item !== label)
-        : [...prevFavorites, label]
-    );
+  const handleMouseLeave = () => {
+    if (isMenuCollapsed && !isMenuFixed) {
+      setIsHovered(false); // Volver a colapsar el menú cuando el cursor sale
+    }
   };
 
-  const toggleShowFavorites = () => {
-    setShowFavorites(!showFavorites);
-  };
-
+  // Opciones del menú
   const menuOptions = [
     { path: "/company", label: "Empresa", icon: <BusinessIcon /> },
     {
@@ -77,15 +67,6 @@ const MainMenu: React.FC = () => {
     { path: "/ejecuciones", label: "Ejecuciones", icon: <ExecutionIcon /> },
   ];
 
-  // Filtrar menú según búsqueda y si está mostrando favoritos
-  const filteredMenu = menuOptions.filter((option) =>
-    option.label.toLowerCase().includes(searchText.toLowerCase())
-  );
-
-  const displayedMenu = showFavorites
-    ? filteredMenu.filter((option) => favorites.includes(option.label))
-    : filteredMenu;
-
   return (
     <>
       <Header />
@@ -93,8 +74,14 @@ const MainMenu: React.FC = () => {
       {/* Barra lateral */}
       <div
         className={`vertical-layout vertical-menu-modern ${
-          isMenuCollapsed ? "menu-collapsed" : "menu-expanded"
+          isMenuCollapsed
+            ? isHovered
+              ? "menu-hovered" // Expandir temporalmente cuando el cursor está sobre el menú colapsado
+              : "menu-collapsed"
+            : "menu-expanded"
         }`}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
       >
         <div
           className="main-menu menu-light menu-accordion menu-shadow"
@@ -111,10 +98,68 @@ const MainMenu: React.FC = () => {
                       height="40"
                     />
                   </span>
-                  {!isMenuCollapsed && (
+                  {(!isMenuCollapsed || isHovered) && (
                     <h2 className="brand-text" style={{ color: "red" }}>
                       Univalle
                     </h2>
+                  )}
+                </a>
+              </li>
+
+              {/* Botón para ocultar/mostrar/fijar el menú */}
+              <li className="nav-item nav-toggle">
+                <a
+                  className="nav-link modern-nav-toggle pe-0"
+                  onClick={handleToggleMenu}
+                >
+                  {isMenuFixed ? (
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="feather feather-x d-block text-primary toggle-icon font-medium-4"
+                    >
+                      <line x1="18" y1="6" x2="6" y2="18"></line>
+                      <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                  ) : isMenuCollapsed ? (
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="feather feather-circle d-block text-secondary toggle-icon font-medium-4"
+                      style={{ color: "gray" }}
+                    >
+                      <circle cx="12" cy="12" r="10"></circle>
+                    </svg>
+                  ) : (
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="feather feather-circle d-block text-secondary toggle-icon font-medium-4"
+                      style={{ color: "gray" }}
+                    >
+                      <circle cx="12" cy="12" r="10"></circle>
+                    </svg>
                   )}
                 </a>
               </li>
@@ -122,101 +167,28 @@ const MainMenu: React.FC = () => {
           </div>
           <div className="shadow-bottom"></div>
 
-          {/* Botones de búsqueda y colapsar/expandir */}
-          <div
-            className="search-toggle"
-            style={{ display: "flex", justifyContent: "center" }}
-          >
-            <Button
-              variant="link"
-              className="nav-link"
-              onClick={handleToggleSearch}
-              style={{ color: "red" }}
-            >
-              <SearchIcon style={{ color: "red" }} />
-            </Button>
-            <Button
-              variant="link"
-              className="nav-link"
-              onClick={handleToggleMenu}
-              style={{ color: "red" }}
-            >
-              {isMenuCollapsed ? <ArrowForward /> : <CloseIcon />}
-            </Button>
-            <Button
-              variant="link"
-              className="nav-link"
-              onClick={toggleShowFavorites}
-              style={{ color: "red" }}
-            >
-              {showFavorites ? (
-                <FavoriteIcon style={{ color: "red" }} />
-              ) : (
-                <FavoriteBorderIcon style={{ color: "red" }} />
-              )}
-            </Button>
-          </div>
-
-          {/* Campo de búsqueda */}
-          {showSearch && (
-            <div className="search-input" style={{ textAlign: "center" }}>
-              <input
-                className="form-control input"
-                type="text"
-                placeholder="Buscar en el menú..."
-                value={searchText}
-                onChange={handleSearchChange}
-              />
-            </div>
-          )}
-
           <div className="main-menu-content">
             <ul
               className="navigation navigation-main"
               id="main-menu-navigation"
               data-menu="menu-navigation"
             >
-              {displayedMenu.length > 0 ? (
-                displayedMenu.map((option, index) => (
-                  <li
-                    className="nav-item d-flex align-items-center"
-                    key={index}
+              {menuOptions.map((option, index) => (
+                <li className="nav-item d-flex align-items-center" key={index}>
+                  <Link
+                    to={option.path}
+                    className="d-flex align-items-center"
+                    style={{ textDecoration: "none", color: "inherit" }} // Elimina el subrayado
                   >
-                    <Link
-                      to={option.path}
-                      className="d-flex align-items-center"
-                    >
-                      {option.icon}
-                      {!isMenuCollapsed && (
-                        <span className="menu-item text-truncate">
-                          {option.label}
-                        </span>
-                      )}
-                    </Link>
-
-                    {/* Solo mostrar el botón de favoritos si el menú NO está colapsado */}
-                    {!isMenuCollapsed && (
-                      <Button
-                        variant="link"
-                        className="nav-link"
-                        onClick={() => toggleFavorite(option.label)}
-                      >
-                        {favorites.includes(option.label) ? (
-                          <FavoriteIcon />
-                        ) : (
-                          <FavoriteBorderIcon />
-                        )}
-                      </Button>
+                    {option.icon}
+                    {(!isMenuCollapsed || isHovered) && (
+                      <span className="menu-item text-truncate">
+                        {option.label}
+                      </span>
                     )}
-                  </li>
-                ))
-              ) : (
-                <li className="nav-item">
-                  <span className="menu-item text-truncate">
-                    No se encontraron resultados
-                  </span>
+                  </Link>
                 </li>
-              )}
+              ))}
             </ul>
           </div>
 

@@ -1,0 +1,41 @@
+/* Agregar al archivo Header.css */
+
+.bookmark-input {
+    display: none; /* Inicialmente oculto */
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    transition: all 0.3s ease;
+  }
+  
+  .bookmark-input.d-block {
+    display: flex; /* Mostrar cuando esté activo */
+    align-items: center;
+  }
+  
+  .bookmark-input-icon {
+    margin-right: 8px;
+  }
+  
+  .input {
+    border: none;
+    outline: none;
+    background-color: transparent;
+    padding: 4px;
+  }
+  
+  .bookmark-icons {
+    display: flex;
+    align-items: center;
+  }
+  
+  .bookmark-icons .nav-item {
+    margin-right: 16px; /* Espaciado entre los íconos */
+  }
+  
+  .bookmark-search {
+    position: relative;
+    margin-right: 16px; /* Espaciado entre la búsqueda y el resto de los íconos */
+  }
+  
