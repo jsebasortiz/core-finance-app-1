@@ -1,7 +1,7 @@
 .main-menu {
   background: #000;
   color: #fff;
-  width: 200px;
+  width: 250px; /* Ancho del menú expandido */
   transition: width 0.3s ease; /* Transición suave para mostrar/ocultar */
 }
 
@@ -16,7 +16,7 @@
 }
 
 .main-menu-content {
-  padding: 10px;
+  padding: 0px;
 }
 
 .navigation-main {
@@ -45,14 +45,15 @@
 .subMenu .menu-item {
   padding: 5px 0;
 }
-/* Ancho del menú expandido */
-.vertical-layout.vertical-menu-modern.menu-expanded .main-menu {
-  width: 260px;
+
+/* Ancho del menú colapsado */
+.menu-collapsed {
+  width: 80px;
 }
 
-/* Ancho del menú colapsado (mitad del expandido) */
-.vertical-layout.vertical-menu-modern.menu-collapsed .main-menu {
-  width: 150px; /* Ajusta este valor a la mitad del expandido */
+/* Expandir el menú temporalmente al hacer hover */
+.menu-hovered {
+  width: 250px;
 }
 
 /* Ocultar el texto de la marca cuando está colapsado */
@@ -68,68 +69,19 @@
 /* Ajustar el margen del contenido principal */
 .vertical-layout.vertical-menu-modern.menu-expanded .app-content,
 .vertical-layout.vertical-menu-modern.menu-expanded .footer {
-  margin-left: 100px;
+  margin-left: 260px;
 }
 
 .vertical-layout.vertical-menu-modern.menu-collapsed .app-content,
 .vertical-layout.vertical-menu-modern.menu-collapsed .footer {
-  margin-left: 110px; /* Debe coincidir con el ancho del menú colapsado */
-}.main-menu {
-  background: #000;
-  color: #fff;
-  width: 250px;
-  transition: width 0.3s ease;
+  margin-left: 90px; /* Ajuste del margen con el menú colapsado */
 }
 
-.menu-collapsed {
-  width: 80px;
-}
-
-.menu-expanded {
-  width: 250px;
-}
-
-.menu-hovered {
-  width: 250px;
-}
-.menu-hovered {
-  width: 250px; /* Expandir el menú temporalmente al hacer hover */
-}
-
-.menu-collapsed {
-  width: 80px;
-}
-
-.menu-expanded {
-  width: 250px;
-}
-
-.main-menu {
-  transition: width 0.3s ease;
-}
-
+/* Transiciones para los ítems del menú */
 .menu-item {
   transition: opacity 0.3s ease;
 }
-.menu-hovered {
-  width: 250px;
-}
 
-.menu-collapsed {
-  width: 80px;
-}
-
-.menu-expanded {
-  width: 250px;
-}
-
-.main-menu {
-  transition: width 0.3s ease;
-}
-
-.menu-item {
-  transition: opacity 0.3s ease;
-}
 .main-menu-content a {
   text-decoration: none; /* Elimina el subrayado */
   color: inherit; /* Mantiene el color del enlace según lo heredado */
