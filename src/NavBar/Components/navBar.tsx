@@ -19,31 +19,32 @@ import { Link } from "react-router-dom";
 import Header from "../../Header/components/Header";
 
 const MainMenu: React.FC = () => {
-  const [isMenuCollapsed, setIsMenuCollapsed] = useState<boolean>(true); // Estado para controlar si el menú está colapsado
-  const [isHovered, setIsHovered] = useState<boolean>(false); // Estado para manejar hover sobre el menú
-  const [isMenuFixed, setIsMenuFixed] = useState<boolean>(false); // Estado para manejar si el menú está fijado
+  const [isMenuCollapsed, setIsMenuCollapsed] = useState<boolean>(true);
+  const [isHovered, setIsHovered] = useState<boolean>(false);
+  const [isMenuFixed, setIsMenuFixed] = useState<boolean>(false);
+  const [searchTerm, setSearchTerm] = useState<string>(""); // Estado para controlar el término de búsqueda
 
   // Función para alternar entre colapsar, fijar y expandir el menú permanentemente
   const handleToggleMenu = () => {
     if (isMenuFixed) {
-      setIsMenuFixed(false); // Ya no está fijado
-      setIsMenuCollapsed(true); // Colapsamos el menú
+      setIsMenuFixed(false);
+      setIsMenuCollapsed(true);
     } else {
-      setIsMenuFixed(true); // Fijamos el menú
-      setIsMenuCollapsed(false); // Expandimos el menú
+      setIsMenuFixed(true);
+      setIsMenuCollapsed(false);
     }
   };
 
   // Funciones para manejar hover en el menú
   const handleMouseEnter = () => {
     if (isMenuCollapsed && !isMenuFixed) {
-      setIsHovered(true); // Expandir el menú al pasar el cursor cuando está colapsado
+      setIsHovered(true);
     }
   };
 
   const handleMouseLeave = () => {
     if (isMenuCollapsed && !isMenuFixed) {
-      setIsHovered(false); // Volver a colapsar el menú cuando el cursor sale
+      setIsHovered(false);
     }
   };
 
@@ -58,14 +59,31 @@ const MainMenu: React.FC = () => {
     { path: "/branch", label: "Sucursal (SUC)", icon: <StoreIcon /> },
     { path: "/inventory", label: "Inventario (IVT)", icon: <InventoryIcon /> },
     { path: "/category", label: "Categorías (CAT)", icon: <CategoryIcon /> },
-    { path: "/department", label: "Departamentos (DEPS)", icon: <DepartmentIcon /> },
+    {
+      path: "/department",
+      label: "Departamentos (DEPS)",
+      icon: <DepartmentIcon />,
+    },
     { path: "/city", label: "Localidad (LCD)", icon: <CityIcon /> },
-    { path: "/currencyType", label: "Tipo de moneda (TDM)", icon: <CurrencyIcon /> },
+    {
+      path: "/currencyType",
+      label: "Tipo de moneda (TDM)",
+      icon: <CurrencyIcon />,
+    },
     { path: "/arbol", label: "PUC Árbol (ARB)", icon: <PucArbolIcon /> },
     { path: "/arbol2", label: "PUC Árbol 2 (ARB2)", icon: <PucArbol2Icon /> },
     { path: "/recursos", label: "Recursos (RCS)", icon: <ResourcesIcon /> },
-    { path: "/ejecuciones", label: "Ejecuciones (EJS)", icon: <ExecutionIcon /> },
+    {
+      path: "/ejecuciones",
+      label: "Ejecuciones (EJS)",
+      icon: <ExecutionIcon />,
+    },
   ];
+
+  // Filtrar opciones del menú basado en el término de búsqueda
+  const filteredMenuOptions = menuOptions.filter((option) =>
+    option.label.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <>
@@ -76,7 +94,7 @@ const MainMenu: React.FC = () => {
         className={`vertical-layout vertical-menu-modern ${
           isMenuCollapsed
             ? isHovered
-              ? "menu-hovered" // Expandir temporalmente cuando el cursor está sobre el menú colapsado
+              ? "menu-hovered"
               : "menu-collapsed"
             : "menu-expanded"
         }`}
@@ -165,7 +183,25 @@ const MainMenu: React.FC = () => {
               </li>
             </ul>
           </div>
-          <div className="shadow-bottom"></div>
+
+          {/* Campo de búsqueda */}
+          <div
+            className="search-bar"
+            style={{ padding: "10px 15px", marginTop: "15px" }}
+          >
+            <input
+              type="text"
+              placeholder="Buscar..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              style={{
+                width: "100%",
+                padding: "8px",
+                borderRadius: "4px",
+                border: "1px solid #ccc",
+              }}
+            />
+          </div>
 
           <div className="main-menu-content">
             <ul
@@ -173,12 +209,12 @@ const MainMenu: React.FC = () => {
               id="main-menu-navigation"
               data-menu="menu-navigation"
             >
-              {menuOptions.map((option, index) => (
+              {filteredMenuOptions.map((option, index) => (
                 <li className="nav-item d-flex align-items-center" key={index}>
                   <Link
                     to={option.path}
                     className="d-flex align-items-center"
-                    style={{ textDecoration: "none", color: "inherit" }} // Elimina el subrayado
+                    style={{ textDecoration: "none", color: "inherit" }}
                   >
                     {option.icon}
                     {(!isMenuCollapsed || isHovered) && (
