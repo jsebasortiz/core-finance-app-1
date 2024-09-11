@@ -17,7 +17,7 @@ import {
 } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import Header from "../../Header/components/Header";
-
+import "./NavBar.css"
 const MainMenu: React.FC = () => {
   const [isMenuCollapsed, setIsMenuCollapsed] = useState<boolean>(true);
   const [isHovered, setIsHovered] = useState<boolean>(false);
