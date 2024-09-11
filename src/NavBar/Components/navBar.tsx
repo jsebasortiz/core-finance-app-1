@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import Button from "react-bootstrap/Button";
 import {
   ExitToApp as ExitToAppIcon,
@@ -17,33 +17,35 @@ import {
 } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import Header from "../../Header/components/Header";
-import "./NavBar.css"
-const MainMenu: React.FC = () => {
-  const [isMenuCollapsed, setIsMenuCollapsed] = useState<boolean>(true);
+import "./NavBar.css";
+
+// Definimos la interfaz para las props que va a recibir el componente
+interface MainMenuProps {
+  isMenuCollapsed: boolean;
+  setIsMenuCollapsed: Dispatch<SetStateAction<boolean>>;
+}
+
+const MainMenu: React.FC<MainMenuProps> = ({
+  isMenuCollapsed,
+  setIsMenuCollapsed,
+}) => {
   const [isHovered, setIsHovered] = useState<boolean>(false);
-  const [isMenuFixed, setIsMenuFixed] = useState<boolean>(false);
   const [searchTerm, setSearchTerm] = useState<string>(""); // Estado para controlar el término de búsqueda
 
-  // Función para alternar entre colapsar, fijar y expandir el menú permanentemente
+  // Función para alternar el estado del menú
   const handleToggleMenu = () => {
-    if (isMenuFixed) {
-      setIsMenuFixed(false);
-      setIsMenuCollapsed(true);
-    } else {
-      setIsMenuFixed(true);
-      setIsMenuCollapsed(false);
-    }
+    setIsMenuCollapsed(!isMenuCollapsed);
   };
 
   // Funciones para manejar hover en el menú
   const handleMouseEnter = () => {
-    if (isMenuCollapsed && !isMenuFixed) {
+    if (isMenuCollapsed) {
       setIsHovered(true);
     }
   };
 
   const handleMouseLeave = () => {
-    if (isMenuCollapsed && !isMenuFixed) {
+    if (isMenuCollapsed) {
       setIsHovered(false);
     }
   };
@@ -88,7 +90,6 @@ const MainMenu: React.FC = () => {
   return (
     <>
       <Header />
-
       {/* Barra lateral */}
       <div
         className={`vertical-layout vertical-menu-modern ${
@@ -123,30 +124,13 @@ const MainMenu: React.FC = () => {
                   )}
                 </a>
               </li>
-
-              {/* Botón para ocultar/mostrar/fijar el menú */}
+              {/* Botón para ocultar/mostrar el menú */}
               <li className="nav-item nav-toggle">
                 <a
                   className="nav-link modern-nav-toggle pe-0"
                   onClick={handleToggleMenu}
                 >
-                  {isMenuFixed ? (
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="feather feather-x d-block text-primary toggle-icon font-medium-4"
-                    >
-                      <line x1="18" y1="6" x2="6" y2="18"></line>
-                      <line x1="6" y1="6" x2="18" y2="18"></line>
-                    </svg>
-                  ) : isMenuCollapsed ? (
+                  {isMenuCollapsed ? (
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="24"
@@ -173,10 +157,10 @@ const MainMenu: React.FC = () => {
                       strokeWidth="2"
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      className="feather feather-circle d-block text-secondary toggle-icon font-medium-4"
-                      style={{ color: "gray" }}
+                      className="feather feather-x d-block text-primary toggle-icon font-medium-4"
                     >
-                      <circle cx="12" cy="12" r="10"></circle>
+                      <line x1="18" y1="6" x2="6" y2="18"></line>
+                      <line x1="6" y1="6" x2="18" y2="18"></line>
                     </svg>
                   )}
                 </a>
@@ -185,15 +169,12 @@ const MainMenu: React.FC = () => {
           </div>
 
           {/* Campo de búsqueda */}
-          <div
-            className="search-bar"
-            style={{ padding: "10px 15px", marginTop: "15px" }}
-          >
+          <div className="search-bar">
             <input
               type="text"
               placeholder="Buscar..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              value={searchTerm} // Agregar el valor del término de búsqueda
+              onChange={(e) => setSearchTerm(e.target.value)} // Actualizar el estado del término de búsqueda
               style={{
                 width: "100%",
                 padding: "8px",
@@ -204,11 +185,7 @@ const MainMenu: React.FC = () => {
           </div>
 
           <div className="main-menu-content">
-            <ul
-              className="navigation navigation-main"
-              id="main-menu-navigation"
-              data-menu="menu-navigation"
-            >
+            <ul className="navigation navigation-main">
               {filteredMenuOptions.map((option, index) => (
                 <li className="nav-item d-flex align-items-center" key={index}>
                   <Link

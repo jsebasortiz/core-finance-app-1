@@ -1,22 +1,29 @@
+/* Ajustar el margen del contenido principal cuando el menú está expandido */
+.menu-expanded .app-content {
+  margin-left: 260px; /* Tamaño del menú cuando está expandido */
+  transition: margin-left 0.3s ease; /* Transición suave */
+}
+
+/* Ajustar el margen del contenido principal cuando el menú está colapsado */
+.menu-collapsed .app-content {
+  margin-left: 90px; /* Tamaño del menú cuando está colapsado */
+  transition: margin-left 0.3s ease; /* Transición suave */
+}
+
+/* Estilos adicionales del menú */
 .main-menu {
   background: #000;
   color: #fff;
   width: 250px; /* Ancho del menú expandido */
-  transition: width 0.3s ease; /* Transición suave para mostrar/ocultar */
+  transition: width 0.3s ease;
 }
 
-.main-menu.menu-closed {
-  width: 0; /* Oculta el menú */
-  overflow: hidden; /* Evita que el contenido sea visible cuando está oculto */
-}
-
-.main-menu .menu-fixed {
-  position: fixed;
-  height: 100%;
+.main-menu.menu-collapsed {
+  width: 80px; /* Ancho del menú cuando está colapsado */
 }
 
 .main-menu-content {
-  padding: 0px;
+  padding: 0;
 }
 
 .navigation-main {
@@ -32,64 +39,24 @@
   margin-left: 10px;
 }
 
-.arrow {
-  margin-left: auto;
-  font-size: 12px;
-}
-
-.subMenu {
-  padding-left: 10px;
-  list-style: none;
-}
-
-.subMenu .menu-item {
-  padding: 5px 0;
-}
-
-/* Ancho del menú colapsado */
-.menu-collapsed {
-  width: 80px;
-}
-
-/* Expandir el menú temporalmente al hacer hover */
-.menu-hovered {
-  width: 250px;
-}
-
-/* Ocultar el texto de la marca cuando está colapsado */
-.vertical-layout.vertical-menu-modern.menu-collapsed .navbar-header .brand-text {
-  display: none;
-}
-
-/* Ocultar los labels de los ítems del menú cuando está colapsado */
-.vertical-layout.vertical-menu-modern.menu-collapsed .main-menu .navigation > li > a .menu-item {
-  display: none;
-}
-
-/* Ajustar el margen del contenido principal */
-.vertical-layout.vertical-menu-modern.menu-expanded .app-content,
-.vertical-layout.vertical-menu-modern.menu-expanded .footer {
-  margin-left: 260px;
-}
-
-.vertical-layout.vertical-menu-modern.menu-collapsed .app-content,
-.vertical-layout.vertical-menu-modern.menu-collapsed .footer {
-  margin-left: 90px; /* Ajuste del margen con el menú colapsado */
-}
-
-/* Transiciones para los ítems del menú */
 .menu-item {
   transition: opacity 0.3s ease;
 }
 
-.main-menu-content a {
-  text-decoration: none; /* Elimina el subrayado */
-  color: inherit; /* Mantiene el color del enlace según lo heredado */
+/* Ocultar los labels de los ítems del menú cuando está colapsado */
+.vertical-menu-modern.menu-collapsed .main-menu .navigation > li > a .menu-item {
+  display: none;
 }
 
-.main-menu-content a:hover {
-  text-decoration: none; /* Asegura que al pasar el cursor tampoco se subraye */
+/* Expandir el menú temporalmente al hacer hover */
+.menu-hovered {
+  width: 250px; /* Muestra el menú al hacer hover */
 }
+
+.menu-hovered .main-menu-content .menu-item {
+  display: inline-block;
+}
+
 .search-bar {
   padding: 10px 15px;
   margin-top: 15px;
