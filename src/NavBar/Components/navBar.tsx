@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import Button from "react-bootstrap/Button";
 import {
-  ExitToApp as ExitToAppIcon,
   Business as BusinessIcon,
   Work as WorkIcon,
   Store as StoreIcon,
@@ -19,32 +17,31 @@ import { Link } from "react-router-dom";
 import Header from "../../Header/components/Header";
 
 const MainMenu: React.FC = () => {
-  const [isMenuCollapsed, setIsMenuCollapsed] = useState<boolean>(true);
-  const [isHovered, setIsHovered] = useState<boolean>(false);
-  const [isMenuFixed, setIsMenuFixed] = useState<boolean>(false);
-  const [searchTerm, setSearchTerm] = useState<string>(""); // Estado para controlar el término de búsqueda
+  const [isMenuCollapsed, setIsMenuCollapsed] = useState<boolean>(true); // Estado para controlar si el menú está colapsado
+  const [isHovered, setIsHovered] = useState<boolean>(false); // Estado para manejar hover sobre el menú
+  const [isMenuFixed, setIsMenuFixed] = useState<boolean>(false); // Estado para manejar si el menú está fijado
 
   // Función para alternar entre colapsar, fijar y expandir el menú permanentemente
   const handleToggleMenu = () => {
     if (isMenuFixed) {
-      setIsMenuFixed(false);
-      setIsMenuCollapsed(true);
+      setIsMenuFixed(false); // Ya no está fijado
+      setIsMenuCollapsed(true); // Colapsamos el menú
     } else {
-      setIsMenuFixed(true);
-      setIsMenuCollapsed(false);
+      setIsMenuFixed(true); // Fijamos el menú
+      setIsMenuCollapsed(false); // Expandimos el menú
     }
   };
 
   // Funciones para manejar hover en el menú
   const handleMouseEnter = () => {
     if (isMenuCollapsed && !isMenuFixed) {
-      setIsHovered(true);
+      setIsHovered(true); // Expandir el menú al pasar el cursor cuando está colapsado
     }
   };
 
   const handleMouseLeave = () => {
     if (isMenuCollapsed && !isMenuFixed) {
-      setIsHovered(false);
+      setIsHovered(false); // Volver a colapsar el menú cuando el cursor sale
     }
   };
 
@@ -80,11 +77,6 @@ const MainMenu: React.FC = () => {
     },
   ];
 
-  // Filtrar opciones del menú basado en el término de búsqueda
-  const filteredMenuOptions = menuOptions.filter((option) =>
-    option.label.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
   return (
     <>
       <Header />
@@ -94,7 +86,7 @@ const MainMenu: React.FC = () => {
         className={`vertical-layout vertical-menu-modern ${
           isMenuCollapsed
             ? isHovered
-              ? "menu-hovered"
+              ? "menu-hovered" // Expandir temporalmente cuando el cursor está sobre el menú colapsado
               : "menu-collapsed"
             : "menu-expanded"
         }`}
@@ -183,25 +175,7 @@ const MainMenu: React.FC = () => {
               </li>
             </ul>
           </div>
-
-          {/* Campo de búsqueda */}
-          <div
-            className="search-bar"
-            style={{ padding: "10px 15px", marginTop: "15px" }}
-          >
-            <input
-              type="text"
-              placeholder="Buscar..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              style={{
-                width: "100%",
-                padding: "8px",
-                borderRadius: "4px",
-                border: "1px solid #ccc",
-              }}
-            />
-          </div>
+          <div className="shadow-bottom"></div>
 
           <div className="main-menu-content">
             <ul
@@ -209,12 +183,12 @@ const MainMenu: React.FC = () => {
               id="main-menu-navigation"
               data-menu="menu-navigation"
             >
-              {filteredMenuOptions.map((option, index) => (
+              {menuOptions.map((option, index) => (
                 <li className="nav-item d-flex align-items-center" key={index}>
                   <Link
                     to={option.path}
                     className="d-flex align-items-center"
-                    style={{ textDecoration: "none", color: "inherit" }}
+                    style={{ textDecoration: "none", color: "inherit" }} // Elimina el subrayado
                   >
                     {option.icon}
                     {(!isMenuCollapsed || isHovered) && (
@@ -225,20 +199,6 @@ const MainMenu: React.FC = () => {
                   </Link>
                 </li>
               ))}
-            </ul>
-          </div>
-
-          <div className="navbar-footer">
-            <ul className="nav navbar-nav flex-row align-items-center ms-auto">
-              <li className="nav-item">
-                <Button
-                  variant="link"
-                  className="nav-link"
-                  onClick={() => console.log("Cerrar sesión")}
-                >
-                  <ExitToAppIcon />
-                </Button>
-              </li>
             </ul>
           </div>
         </div>
