@@ -1,0 +1,44 @@
+/* Cuando el menú está expandido */
+.menu-expanded .app-content,
+.menu-expanded .header-navbar, /* Cambié a .header-navbar para asegurar consistencia */
+.menu-expanded .footer {
+  margin-left: 150px; /* Ajusta este valor para el menú expandido */
+  transition: margin-left 0.3s ease; /* Transición suave */
+}
+
+/* Cuando el menú está colapsado */
+.menu-collapsed .app-content,
+.menu-collapsed .header-navbar, /* Cambié a .header-navbar para asegurar consistencia */
+.menu-collapsed .footer {
+  margin-left: 80px; /* Ajusta este valor para el menú colapsado */
+  transition: margin-left 0.3s ease; /* Transición suave */
+}
+
+/* Estilos adicionales para el header */
+.header-navbar {
+  width: calc(100% - 90px); /* Ajusta el ancho según el margen */
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 60px;
+  z-index: 1000;
+  transition: margin-left 0.3s ease, width 0.3s ease;
+}
+/* Aplicar la fuente Montserrat a todo el contenido */
+body {
+    font-family: 'Montserrat', sans-serif;
+  }
+  
+  /* Ajustar las fuentes para los encabezados */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600; /* Usar un peso más grueso para los encabezados */
+  }
+  
+  p, a, span, div {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400; /* Peso normal para texto */
+  }
+  

@@ -1,1 +1,16 @@
 
+body {
+    font-family: 'Montserrat', sans-serif;
+  }
+  
+  /* Ajustar las fuentes para los encabezados */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600; /* Usar un peso más grueso para los encabezados */
+  }
+  
+  p, a, span, div {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400; /* Peso normal para texto */
+  }
+  

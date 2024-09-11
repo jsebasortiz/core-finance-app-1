@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { NavLink } from "react-router-dom";
 import {
-  FaSearch,
   FaShoppingCart,
   FaBell,
   FaEnvelope,
@@ -11,19 +10,12 @@ import {
 } from "react-icons/fa";
 import { MdMenu } from "react-icons/md";
 import ThemeToggle from "./ChangeTopic";
+import "./Header.css"
+interface HeaderProps {
+  isMenuCollapsed: boolean;
+}
 
-const Header: React.FC = () => {
-  // Estado para controlar la visibilidad del campo de búsqueda
-  const [searchVisible, setSearchVisible] = useState<boolean>(false);
-  // Estado para almacenar el texto de búsqueda
-  const [searchTerm, setSearchTerm] = useState<string>("");
-
-  // Función para alternar la visibilidad del campo de búsqueda
-  const toggleSearch = () => {
-    setSearchVisible(!searchVisible);
-  };
-
-  // Lista de opciones del menú
+const Header: React.FC<HeaderProps> = ({ isMenuCollapsed }) => {
   const menuOptions = [
     { label: "Email", icon: <FaEnvelope />, link: "app-email.html" },
     { label: "Chat", icon: <FaComment />, link: "app-chat.html" },
@@ -31,13 +23,12 @@ const Header: React.FC = () => {
     { label: "Todo", icon: <FaCheckSquare />, link: "app-todo.html" },
   ];
 
-  // Filtrar opciones basadas en el texto de búsqueda
-  const filteredOptions = menuOptions.filter((option) =>
-    option.label.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
   return (
-    <nav className="header-navbar navbar navbar-expand-lg align-items-center floating-nav navbar-light navbar-shadow container-xxl">
+    <nav
+      className={`header-navbar navbar navbar-expand-lg align-items-center floating-nav navbar-light navbar-shadow container-xxl ${
+        isMenuCollapsed ? "menu-collapsed" : "menu-expanded"
+      }`}
+    >
       <div className="navbar-container d-flex content">
         <div className="bookmark-wrapper d-flex align-items-center">
           <ul className="nav navbar-nav d-xl-none">
@@ -48,7 +39,7 @@ const Header: React.FC = () => {
             </li>
           </ul>
           <ul className="nav navbar-nav bookmark-icons">
-            {filteredOptions.map((option) => (
+            {menuOptions.map((option) => (
               <li className="nav-item d-none d-lg-block" key={option.label}>
                 <NavLink
                   className="nav-link"
@@ -65,27 +56,6 @@ const Header: React.FC = () => {
               <a className="nav-link bookmark-star">
                 <i className="ficon text-warning" data-feather="star"></i>
               </a>
-            </li>
-            <li className="nav-item d-none d-lg-block">
-              <a className="nav-link bookmark-search" onClick={toggleSearch}>
-                <FaSearch />
-              </a>
-              <div
-                className={`bookmark-input ${
-                  searchVisible ? "d-block" : "d-none"
-                }`}
-              >
-                <div className="bookmark-input-icon">
-                  <FaSearch />
-                </div>
-                <input
-                  className="form-control input"
-                  type="text"
-                  placeholder="Search"
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                />
-              </div>
             </li>
           </ul>
         </div>
@@ -120,7 +90,7 @@ const Header: React.FC = () => {
               </NavLink>
             </div>
           </li>
-          <ThemeToggle /> {/* Aquí está el toggle de tema */}
+          <ThemeToggle />
           <li className="nav-item dropdown dropdown-cart me-25">
             <a className="nav-link" href="#" data-bs-toggle="dropdown">
               <FaShoppingCart />
@@ -137,7 +107,6 @@ const Header: React.FC = () => {
                   </div>
                 </div>
               </li>
-              {/* Cart items go here */}
               <li className="dropdown-menu-footer">
                 <div className="d-flex justify-content-between mb-1">
                   <h6 className="fw-bolder mb-0">Total:</h6>
@@ -168,7 +137,6 @@ const Header: React.FC = () => {
                   </div>
                 </div>
               </li>
-              {/* Notification items go here */}
               <li className="dropdown-menu-footer">
                 <NavLink className="btn btn-primary w-100" to="#">
                   Read all notifications

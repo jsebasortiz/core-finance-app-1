@@ -1,41 +1,19 @@
-/* Agregar al archivo Header.css */
-
-.bookmark-input {
-    display: none; /* Inicialmente oculto */
-    position: absolute;
-    top: 50%;
-    right: 0;
-    transform: translateY(-50%);
-    transition: all 0.3s ease;
+.header-navbar {
+    height: 80px; /* Cambia este valor para hacer el header más alto */
+    line-height: 100px; /* Para centrar verticalmente los elementos */
+    transition: height 0.3s ease; /* Transición suave para cambios de tamaño */
   }
   
-  .bookmark-input.d-block {
-    display: flex; /* Mostrar cuando esté activo */
-    align-items: center;
-  }
-  
-  .bookmark-input-icon {
-    margin-right: 8px;
-  }
-  
-  .input {
-    border: none;
-    outline: none;
-    background-color: transparent;
-    padding: 4px;
-  }
-  
-  .bookmark-icons {
+  .navbar-container {
     display: flex;
     align-items: center;
+    height: 100%; /* Para asegurarte que los elementos ocupen toda la altura del header */
   }
   
-  .bookmark-icons .nav-item {
-    margin-right: 16px; /* Espaciado entre los íconos */
-  }
-  
-  .bookmark-search {
-    position: relative;
-    margin-right: 16px; /* Espaciado entre la búsqueda y el resto de los íconos */
+  .user-nav {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    line-height: normal;
   }
   

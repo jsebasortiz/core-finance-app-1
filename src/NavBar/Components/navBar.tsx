@@ -89,7 +89,7 @@ const MainMenu: React.FC<MainMenuProps> = ({
 
   return (
     <>
-      <Header />
+      <Header isMenuCollapsed={false} />
       {/* Barra lateral */}
       <div
         className={`vertical-layout vertical-menu-modern ${
